@@ -1,7 +1,14 @@
-import "./App.css";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Users from "./user/pages/Users";
 
-function App() {
-  return <h1>Let's start!</h1>;
-}
+const App = () => {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Users />} />
+      </Routes>
+    </Router>
+  );
+};
 
 export default App;
