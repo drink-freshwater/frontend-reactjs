@@ -5,8 +5,8 @@ const Users = () => {
   const USERS = [
     {
       id: "u1",
-      name: "Anam",
-      image: "https://via.placeholder.com/600/771796",
+      name: "Chairul Anam",
+      image: "https://via.placeholder.com/400/197d29",
       places: 3,
     },
   ];
