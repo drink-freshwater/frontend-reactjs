@@ -13,7 +13,7 @@ const MainNavigation = () => {
         <span />
       </button>
       <h1 className="main-navigation__title">
-        <Link>YourPlaces</Link>
+        <Link to="/">YourPlaces</Link>
       </h1>
       <nav>...</nav>
     </MainHeader>
