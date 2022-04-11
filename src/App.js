@@ -15,5 +15,5 @@ const App = () => {
     </Router>
   );
 };
-
+//menit 6:45 lecture 44
 export default App;
