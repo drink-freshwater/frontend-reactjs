@@ -24,7 +24,7 @@ const PlaceList = (props) => {
           id={place.id}
           image={place.imageUrl}
           title={place.title}
-          desc={place.desc}
+          description={place.description}
           address={place.address}
           creatorId={place.creator}
           coordinates={place.location}
