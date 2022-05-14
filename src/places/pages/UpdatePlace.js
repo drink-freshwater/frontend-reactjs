@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Button from "../../shared/components/FormElements/Button";
 import Input from "../../shared/components/FormElements/Input";
+import Card from "../../shared/components/UIElements/Card";
 import { useForm } from "../../shared/hooks/form-hook";
 import {
   VALIDATOR_MINLENGTH,
@@ -27,7 +28,7 @@ const DUMMY_PLACES = [
   },
   {
     id: "p2",
-    title: "Pasar Traditional",
+    title: "Ps. Traditional",
     description: "Tempat Jual Beli",
     imageUrl:
       "https://asset.kompas.com/crops/CImo851tzUxQ2dYZyDxIhqyHj50=/0x0:1000x667/750x500/data/photo/2021/05/11/609a34322eb5e.jpg",
@@ -41,24 +42,44 @@ const DUMMY_PLACES = [
   },
 ];
 
-const UpdatePlace = (props) => {
+const UpdatePlace = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const placeId = useParams().placeId;
 
-  const idfyPlace = DUMMY_PLACES.find((p) => p.id === placeId);
-
-  const [formState, inputHandler] = useForm(
+  const [formState, inputHandler, setFormData] = useForm(
     {
       title: {
-        value: idfyPlace.title,
-        isValid: true,
+        value: "",
+        isValid: false,
       },
       description: {
-        value: idfyPlace.description,
-        isValid: true,
+        value: "",
+        isValid: false,
       },
     },
-    true
+    false
   );
+  const idfyPlace = DUMMY_PLACES.find((p) => p.id === placeId);
+
+  useEffect(() => {
+    if (idfyPlace) {
+      setFormData(
+        {
+          title: {
+            value: idfyPlace.title,
+            isValid: true,
+          },
+          description: {
+            value: idfyPlace.description,
+            isValid: true,
+          },
+        },
+        true
+      );
+    }
+
+    setIsLoading(false);
+  }, [setFormData, idfyPlace]);
 
   const placeUpdateSubmitHandler = (event) => {
     event.preventDefault();
@@ -68,7 +89,19 @@ const UpdatePlace = (props) => {
   if (!idfyPlace) {
     return (
       <div className="center">
-        <h2>Tempat tidak ditemukan</h2>;
+        <Card>
+          <h2>Tempat tidak ditemukan!</h2>
+        </Card>
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <div className="center">
+        <Card>
+          <h2>Loading...</h2>
+        </Card>
       </div>
     );
   }
@@ -83,8 +116,8 @@ const UpdatePlace = (props) => {
         validators={[VALIDATOR_REQUIRE()]}
         errorText="Please enter a valid title."
         onInput={inputHandler}
-        value={formState.inputs.title.value}
-        valid={formState.inputs.title.isValid}
+        initialValue={formState.inputs.title.value}
+        initialValid={formState.inputs.title.isValid}
       />
       <Input
         id="description"
@@ -93,8 +126,8 @@ const UpdatePlace = (props) => {
         validators={[VALIDATOR_MINLENGTH(5)]}
         errorText="Please enter a valid description (min. 5 characters)."
         onInput={inputHandler}
-        value={formState.inputs.description.value}
-        valid={formState.inputs.description.isValid}
+        initialValue={formState.inputs.description.value}
+        initialValid={formState.inputs.description.isValid}
       />
       <Button type="submit" disabled={!formState.isValid}>
         UPDATE PLACE

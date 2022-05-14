@@ -20,7 +20,7 @@ const DUMMY_PLACES = [
   },
   {
     id: "p2",
-    title: "Pasar Traditional",
+    title: "Ps. Traditional",
     description: "Tempat Jual Beli",
     imageUrl:
       "https://asset.kompas.com/crops/CImo851tzUxQ2dYZyDxIhqyHj50=/0x0:1000x667/750x500/data/photo/2021/05/11/609a34322eb5e.jpg",
