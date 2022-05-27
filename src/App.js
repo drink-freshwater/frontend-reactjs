@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Navigate,
+  Route,
+  Routes,
+} from "react-router-dom";
 import NewPlace from "./places/pages/NewPlace";
 import UpdatePlace from "./places/pages/UpdatePlace";
 import UserPlaces from "./places/pages/UserPlaces";
@@ -26,14 +31,15 @@ const App = () => {
         <Route path="/:userId/places" element={<UserPlaces />} />
         <Route path="/places/new" element={<NewPlace />} />
         <Route path="/places/:placeId" element={<UpdatePlace />} />
+        <Route path="/auth" element={<Navigate to="/" />} />
       </React.Fragment>
     );
   } else {
     routes = (
       <React.Fragment>
+        <Route path="/auth" element={<Auth />} />
         <Route path="/" element={<Users />} />
         <Route path="/:userId/places" element={<UserPlaces />} />
-        <Route path="/auth" element={<Auth />} />
       </React.Fragment>
     );
   }
