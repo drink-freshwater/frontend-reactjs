@@ -1,11 +1,18 @@
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../../context/auth-context";
+import { useNavigate } from "react-router-dom";
 
 import "./NavLinks.css";
 
 const NavLinks = (props) => {
   const auth = useContext(AuthContext);
+  const nav = useNavigate();
+
+  function handleLogout() {
+    auth.logout();
+    nav("/auth");
+  }
 
   return (
     <ul className="nav-links">
@@ -25,6 +32,11 @@ const NavLinks = (props) => {
       {!auth.isLoggedIn && (
         <li>
           <NavLink to="/auth">AUTHENTICATE</NavLink>
+        </li>
+      )}
+      {auth.isLoggedIn && (
+        <li>
+          <button onClick={handleLogout}>LOGOUT</button>
         </li>
       )}
     </ul>
